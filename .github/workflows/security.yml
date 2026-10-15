@@ -59,6 +59,10 @@ jobs:
           go-version-file: server/go.mod
       - name: Install gitleaks
         run: go install github.com/zricethezav/gitleaks/v8@v8.28.0
+      - name: Verify scanner rules and the narrow public-protocol exception
+        run: |
+          export PATH="$(go env GOPATH)/bin:$PATH"
+          python3 scripts/test_gitleaks_config.py
       - name: Scan introduced commits
         env:
           EVENT_NAME: ${{ github.event_name }}
