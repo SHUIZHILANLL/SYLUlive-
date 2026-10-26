@@ -38,10 +38,7 @@ android {
         // keeping targetSdk at 34 prevents its toolbar from being drawn under the status bar.
         targetSdk = 34
         versionCode = flutter.versionCode
-        // Flutter 只接受纯数字版本号，这里覆盖成带测试标记的展示版本；
-        // 代码里的版本比较（theme_pack_manifest.compareVersions）用 int.tryParse，
-        // 解析不了的段按 0 处理，不会崩。
-        versionName = "1.7.6.01（测试）"
+        versionName = flutter.versionName
         manifestPlaceholders["JPUSH_PKGNAME"] = "com.example.shenliyuan"
         manifestPlaceholders["JPUSH_APPKEY"] = "fbbd87f741e919f39519afe6"
         manifestPlaceholders["JPUSH_CHANNEL"] = "developer-default"
