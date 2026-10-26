@@ -59,7 +59,7 @@ class AiAgentPermissionCard extends StatelessWidget {
           _InfoRow(label: '现有$label数据', value: '已授权快照'),
           const _InfoRow(label: '本次要求', value: '最新数据'),
           const SizedBox(height: 8),
-          const Row(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(Icons.lock_outline_rounded,

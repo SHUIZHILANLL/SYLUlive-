@@ -6,14 +6,35 @@ import '../widgets/campus/campus_theme.dart';
 
 class AppTheme {
   // 主题色 — 全局统一为品牌青绿
-  static const Color primaryColor = AppColors.brandPrimary;
+  /// 主题包提供的品牌种子色；null 表示用 App 默认品牌色。
+  static Color? _brandSeedOverride;
+
+  /// 由 ThemeProvider 在应用/取消主题包时调用。
+  static void setBrandSeed(Color? color) => _brandSeedOverride = color;
+
+  static bool get hasBrandSeed => _brandSeedOverride != null;
+
+  /// 实际生效的品牌色：有主题包就用包里的，否则用默认。
+  static Color get primaryColor => _brandSeedOverride ?? AppColors.brandPrimary;
+
+  /// 深色模式强调色：把品牌色往白里提一档，保证深底上够亮又不刺眼。
+  ///
+  /// 之前这里是硬编码 #7ED6C5，换背景提色时开关/滑块/指示器都不跟着变。
+  static Color _liftForDark(Color base) {
+    final hsl = HSLColor.fromColor(base);
+    return hsl
+        .withLightness(hsl.lightness < 0.62 ? 0.66 : hsl.lightness)
+        .withSaturation(hsl.saturation.clamp(0.45, 0.75))
+        .toColor();
+  }
   static const Color secondaryColor = AppColors.info;
   static const Color accentColor = AppColors.warning;
 
   // 圆角 — 国产 UI 紧凑风格
-  static const double borderRadius = AppRadius.md;
-  static const double borderRadiusSmall = AppRadius.sm;
-  static const double borderRadiusLarge = AppRadius.lg;
+  // 半径跟随主题包（AppRadius 支持运行时覆盖），所以不能是 const。
+  static double get borderRadius => AppRadius.md;
+  static double get borderRadiusSmall => AppRadius.sm;
+  static double get borderRadiusLarge => AppRadius.lg;
 
   // 阴影
   static const double shadowBlur = 10.0;
@@ -36,12 +57,10 @@ class AppTheme {
       // 必须显式指定：ThemeData 在深色模式下默认 primaryColor 取
       // colorScheme.surface（近黑），导致 NavigationRail 选中项、各种
       // Theme.of(context).primaryColor 强调色在深色背景上几乎不可见。
-      // 浅色仍取 scheme.primary；深色不用 fromSeed 的 tone80，而是用
-      // app 内既定的深色强调色 #7ED6C5（与设置滑块/开关等一致），柔和
-      // 清晰、深色背景上对比充足，不突兀。
-      primaryColor:
-          brightness == Brightness.dark
-          ? const Color(0xFF7ED6C5)
+      // 浅色取 scheme.primary；深色取「品牌色提亮版」——原来是写死的
+      // 薄荷绿 #7ED6C5，导致换背景提色后开关/滑块颜色不跟着变。
+      primaryColor: brightness == Brightness.dark
+          ? _liftForDark(primaryColor)
           : scheme.primary,
       scaffoldBackgroundColor:
           brightness == Brightness.dark ? CampusTheme.darkBg : CampusTheme.bg,

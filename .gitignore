@@ -161,3 +161,6 @@ id_rsa
 id_ecdsa
 id_ed25519*
 *.ppk
+
+# 主题包产物（第三方美术素材，不随仓库分发）
+client/assets/demo/*.syltheme

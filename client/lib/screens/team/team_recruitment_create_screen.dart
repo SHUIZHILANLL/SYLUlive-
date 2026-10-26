@@ -362,7 +362,7 @@ class _TeamRecruitmentCreateScreenState
                   padding: const EdgeInsets.fromLTRB(20, 14, 16, 12),
                   child: Row(
                     children: [
-                      const Icon(Icons.remove_red_eye_rounded,
+                      Icon(Icons.remove_red_eye_rounded,
                           size: 20, color: CampusTheme.primary),
                       const SizedBox(width: 8),
                       Text(
@@ -430,7 +430,7 @@ class _TeamRecruitmentCreateScreenState
                             Text(
                               '招募名额：${previewItem.neededCount} 人 · 已招募 ${previewItem.acceptedCount} 人'
                               '${previewItem.remainingCount > 0 ? " (还需 ${previewItem.remainingCount} 人)" : " (名额已满)"}',
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w700,
                                   color: CampusTheme.primary),
@@ -639,7 +639,7 @@ class _TeamRecruitmentCreateScreenState
                   color: CampusTheme.primary.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.check_circle_rounded,
                   color: CampusTheme.primary,
                   size: 38,
@@ -687,7 +687,7 @@ class _TeamRecruitmentCreateScreenState
                     const SizedBox(height: 4),
                     Text(
                       '已招募 ${created.acceptedCount} / 招募名额 ${created.neededCount} 人 · ${teamCategoryLabel(created.category)}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
                         color: CampusTheme.primary,
                         fontWeight: FontWeight.w700,
@@ -1020,7 +1020,7 @@ class _TeamRecruitmentCreateScreenState
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Text(
                               '$_neededCount 人',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w800,
                                 color: CampusTheme.primary,
@@ -1639,7 +1639,7 @@ class _TeamRecruitmentCreateScreenState
                             color: CampusTheme.primary.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: const Text(
+                          child: Text(
                             '✓ 校园认证',
                             style: TextStyle(
                               color: CampusTheme.primary,

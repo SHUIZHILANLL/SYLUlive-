@@ -222,7 +222,7 @@ class _AdminCanteenReviewScreenState extends State<AdminCanteenReviewScreen> {
               color: AppColors.brandPrimary.withValues(alpha: 0.12),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.storefront,
               color: AppColors.brandPrimary,
               size: 36,

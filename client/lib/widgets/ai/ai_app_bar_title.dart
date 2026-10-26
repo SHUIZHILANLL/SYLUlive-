@@ -22,7 +22,7 @@ class AiAppBarTitle extends StatelessWidget {
             color: AppColors.brandSurfaceLight,
             borderRadius: BorderRadius.circular(AppRadius.pill),
           ),
-          child: const Text(
+          child: Text(
             '内测',
             style: TextStyle(
               color: AppColors.brandPrimary,

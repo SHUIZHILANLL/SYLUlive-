@@ -54,7 +54,7 @@ class ErkeSnapshotUploadDialog extends StatelessWidget {
                           : AppColors.brandSurfaceLight,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.cloud_upload_outlined,
                       color: AppColors.brandPrimary,
                     ),
@@ -96,14 +96,14 @@ class ErkeSnapshotUploadDialog extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 14),
-              const _DataScopeRow(
+              _DataScopeRow(
                 icon: Icons.check_circle_outline_rounded,
                 iconColor: AppColors.brandPrimary,
                 title: '仅上传摘要',
                 detail: '分数汇总、分类缺口、最近活动',
               ),
               const SizedBox(height: 10),
-              const _DataScopeRow(
+              _DataScopeRow(
                 icon: Icons.shield_outlined,
                 iconColor: AppColors.brandPrimary,
                 title: '敏感信息留在本机',
@@ -167,7 +167,7 @@ class ErkeSnapshotUploadDialog extends StatelessWidget {
                   key: const ValueKey('erke-upload-auto'),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.brandPrimary,
-                    side: const BorderSide(color: AppColors.brandPrimary),
+                    side: BorderSide(color: AppColors.brandPrimary),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),

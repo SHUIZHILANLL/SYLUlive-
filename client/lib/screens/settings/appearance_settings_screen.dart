@@ -294,6 +294,8 @@ class AppearanceSettingsScreen extends StatelessWidget {
     return SettingsPageScaffold(
       title: '界面设置',
       children: [
+        // 主题市场入口已移除（按需求不再提供主题包切换）。
+
         // 智能实时自适应微缩预览卡片
         _buildLivePreviewCard(context, themeProvider),
 

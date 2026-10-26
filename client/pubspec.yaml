@@ -88,6 +88,7 @@ flutter:
     - assets/images/xiaoli.jpg
     - assets/images/yuanshen.jpg
     - assets/data/
+    - assets/demo/
     - assets/models/graduate_captcha_digit.tflite
 
   fonts:

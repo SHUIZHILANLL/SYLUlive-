@@ -36,7 +36,7 @@ class AiRunFeedbackButtons extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: colors.surface,
-              borderRadius: const BorderRadius.vertical(
+              borderRadius: BorderRadius.vertical(
                 top: Radius.circular(AppRadius.sheet),
               ),
             ),

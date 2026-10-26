@@ -450,7 +450,7 @@ class _DiagnosticsSettingsScreenState extends State<DiagnosticsSettingsScreen> {
                           : const Color(0xFFE4F4F0),
                       borderRadius: BorderRadius.circular(11),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.bug_report_outlined,
                       size: 22,
                       color: CampusTheme.primary,

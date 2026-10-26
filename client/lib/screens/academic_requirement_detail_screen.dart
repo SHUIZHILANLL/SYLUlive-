@@ -18,7 +18,7 @@ class AcademicRequirementDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    const accent = AppColors.brandPrimary;
+    final accent = AppColors.brandPrimary;
     final titleColor =
         isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight;
     final subColor =

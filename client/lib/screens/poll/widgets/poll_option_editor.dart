@@ -27,13 +27,14 @@ class PollOptionEditor extends StatelessWidget {
           width: 28,
           height: 28,
           alignment: Alignment.center,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
+            // primaryLight 现在是跟随品牌色的 getter，不能再 const
             color: CampusTheme.primaryLight,
             shape: BoxShape.circle,
           ),
           child: Text(
             '${index + 1}',
-            style: const TextStyle(
+            style: TextStyle(
               color: CampusTheme.primary,
               fontWeight: FontWeight.w700,
             ),
@@ -58,7 +59,7 @@ class PollOptionEditor extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: CampusTheme.primary, width: 1),
+                borderSide: BorderSide(color: CampusTheme.primary, width: 1),
               ),
             ),
           ),

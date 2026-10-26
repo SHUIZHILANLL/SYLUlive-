@@ -1960,7 +1960,7 @@ class _AdminReviewTasksScreenState extends State<AdminReviewTasksScreen> {
               color: AppColors.brandPrimary.withValues(alpha: 0.12),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
+            child: Icon(
               Icons.task_alt_rounded,
               color: AppColors.brandPrimary,
               size: 36,

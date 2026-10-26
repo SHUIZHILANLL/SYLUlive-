@@ -204,7 +204,7 @@ class _CanteenPendingReviewImageState extends State<CanteenPendingReviewImage> {
       width: widget.width,
       height: widget.height,
       color: isDark ? const Color(0xFF1E2226) : const Color(0xFFF1F5F2),
-      child: const Center(
+      child: Center(
         child: SizedBox(
           width: 28,
           height: 28,

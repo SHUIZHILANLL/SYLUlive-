@@ -16,8 +16,11 @@ class CampusTheme {
   static const Color text = AppColors.textPrimaryLight;
   static const Color subText = AppColors.textSecondaryLight;
 
-  static const Color primary = AppColors.brandPrimary;
-  static const Color primaryLight = Color(0xFFEAF6F3);
+  /// 注意是 getter：static final 会在首次读取时把值固化，
+  /// 换背景重新提色后就再也刷不新了。
+  static Color get primary => AppColors.brandPrimary;
+  /// 品牌浅底：跟着品牌色走（原来是写死的 #EAF6F3 薄荷色）。
+  static Color get primaryLight => AppColors.brandSurfaceLight;
 
   static const Color border = AppColors.borderNormalLight;
   static const Color softBorder = AppColors.borderSubtleLight;

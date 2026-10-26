@@ -518,7 +518,7 @@ class _FeedbackDetailScreenState extends State<FeedbackDetailScreen>
       context: context,
       isScrollControlled: true,
       backgroundColor: isDark ? const Color(0xFF1E2226) : Colors.white,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius:
             BorderRadius.vertical(top: Radius.circular(AppRadius.sheet)),
       ),
@@ -939,7 +939,7 @@ class _FeedbackDetailScreenState extends State<FeedbackDetailScreen>
                 ),
                 child: Text(
                   _ticket!.statusLabel(isAdmin: widget.isAdmin),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                     color: AppColors.brandPrimary,
@@ -988,7 +988,7 @@ class _FeedbackDetailScreenState extends State<FeedbackDetailScreen>
                 dense: true,
                 title: Text(
                   '状态变迁记录 (${_history.length})',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
                     color: AppColors.brandPrimary,
                     fontWeight: FontWeight.w600,

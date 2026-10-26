@@ -53,13 +53,13 @@ class ReplyNotificationReminder extends StatelessWidget {
                   Container(
                     width: 6,
                     height: 6,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.brandPrimary,
                       shape: BoxShape.circle,
                     ),
                   ),
                   const SizedBox(width: AppSpacing.xs),
-                  const Icon(
+                  Icon(
                     Icons.forum_outlined,
                     size: 18,
                     color: AppColors.brandPrimary,
@@ -115,7 +115,7 @@ Future<void> showReplyNotificationList(
     showDragHandle: true,
     builder: (sheetContext) => Material(
       color: Theme.of(sheetContext).colorScheme.surface,
-      borderRadius: const BorderRadius.vertical(
+      borderRadius: BorderRadius.vertical(
         top: Radius.circular(AppRadius.sheet),
       ),
       child: SafeArea(

@@ -1038,7 +1038,7 @@ class _ExamScheduleScreenState extends State<ExamScheduleScreen> {
                                 ),
                                 child: Column(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.location_on,
                                       color: AppColors.brandPrimary,
                                       size: 16,
@@ -1048,7 +1048,7 @@ class _ExamScheduleScreenState extends State<ExamScheduleScreen> {
                                       exam.location.isNotEmpty
                                           ? exam.location
                                           : '未指定',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         color: AppColors.brandPrimary,
                                         fontWeight: FontWeight.w700,
                                         fontSize: 12,

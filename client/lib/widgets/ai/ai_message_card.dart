@@ -91,7 +91,7 @@ class AiMessageCard extends StatelessWidget {
                   color: AppColors.brandSurfaceLight,
                   borderRadius: BorderRadius.circular(AppRadius.sm),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.auto_awesome_rounded,
                   size: 14,
                   color: AppColors.brandPrimary,

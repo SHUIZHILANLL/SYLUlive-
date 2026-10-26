@@ -501,7 +501,7 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
                               title: Text(_academicYearLabel(y),
                                   textAlign: TextAlign.center),
                               trailing: _currentYear == y
-                                  ? const Icon(Icons.check,
+                                  ? Icon(Icons.check,
                                       color: AppColors.brandPrimary)
                                   : const SizedBox(width: 24),
                               onTap: () {
@@ -622,7 +622,7 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
                     version: QrVersions.auto,
                     size: qrSize,
                     backgroundColor: Colors.white,
-                    eyeStyle: const QrEyeStyle(
+                    eyeStyle: QrEyeStyle(
                       eyeShape: QrEyeShape.square,
                       color: AppColors.brandPrimary,
                     ),
@@ -669,7 +669,7 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
         borderRadius: 16,
         child: Row(
           children: [
-            const Icon(Icons.qr_code_2, size: 20, color: AppColors.brandPrimary),
+            Icon(Icons.qr_code_2, size: 20, color: AppColors.brandPrimary),
             const SizedBox(width: 10),
             const Text(
               '体测身份码',
@@ -760,7 +760,7 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
                 ),
               ),
               const Spacer(),
-              const Text(
+              Text(
                 '评分标准',
                 style: TextStyle(
                   color: AppColors.brandPrimary,

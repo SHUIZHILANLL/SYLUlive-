@@ -47,7 +47,7 @@ class _GroupChatDialogState extends State<_GroupChatDialog> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    const accent = CampusTheme.primary;
+    final accent = CampusTheme.primary;
     final dialogBackground = isDark ? const Color(0xFF1E1E2E) : Colors.white;
     final titleColor = isDark ? Colors.white : const Color(0xFF2D3142);
     final labelColor = isDark ? Colors.white54 : const Color(0xFF9094A6);
@@ -68,7 +68,7 @@ class _GroupChatDialogState extends State<_GroupChatDialog> {
           ),
           title: Row(
             children: [
-              const Icon(Icons.group_rounded, color: accent),
+              Icon(Icons.group_rounded, color: accent),
               const SizedBox(width: 8),
               Text('加入群聊', style: TextStyle(color: titleColor)),
             ],
@@ -129,7 +129,7 @@ class _GroupChatDialogState extends State<_GroupChatDialog> {
                   ),
                   child: Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.numbers_rounded,
                         size: 18,
                         color: accent,
@@ -231,7 +231,7 @@ class _GroupChatDialogState extends State<_GroupChatDialog> {
 
 Future<void> _handleDownload(BuildContext context) async {
   final isDark = Theme.of(context).brightness == Brightness.dark;
-  const accent = CampusTheme.primary;
+  final accent = CampusTheme.primary;
   final dialogBackground = isDark ? const Color(0xFF1E1E2E) : Colors.white;
   final titleColor = isDark ? Colors.white : const Color(0xFF2D3142);
   final contentColor = isDark ? Colors.white70 : const Color(0xFF4F5568);
@@ -246,7 +246,7 @@ Future<void> _handleDownload(BuildContext context) async {
       ),
       title: Row(
         children: [
-          const Icon(Icons.save_alt_rounded, color: accent),
+          Icon(Icons.save_alt_rounded, color: accent),
           const SizedBox(width: 8),
           Text('保存二维码', style: TextStyle(color: titleColor)),
         ],

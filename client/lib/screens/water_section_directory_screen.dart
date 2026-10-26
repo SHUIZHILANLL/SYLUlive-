@@ -137,10 +137,10 @@ class _WaterSectionDirectoryScreenState
               Text('特殊版块', style: TextStyle(fontSize: 12, color: isDark ? Colors.white60 : Colors.black54)),
               const SizedBox(height: 8),
               Row(children: [
-                CircleAvatar(backgroundColor: isDark ? AppColors.surfaceMutedDark : AppColors.brandSurfaceLight, child: const Icon(Icons.poll_outlined, color: AppColors.brandPrimary)),
+                CircleAvatar(backgroundColor: isDark ? AppColors.surfaceMutedDark : AppColors.brandSurfaceLight, child: Icon(Icons.poll_outlined, color: AppColors.brandPrimary)),
                 const SizedBox(width: 12),
                 const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('校园投票', style: TextStyle(fontWeight: FontWeight.w800)), SizedBox(height: 3), Text('参与校园话题、选择与意见征集', style: TextStyle(fontSize: 12))])),
-                const Icon(Icons.chevron_right, color: AppColors.brandPrimary),
+                Icon(Icons.chevron_right, color: AppColors.brandPrimary),
               ]),
               const SizedBox(height: 8),
               Wrap(spacing: 4, children: [

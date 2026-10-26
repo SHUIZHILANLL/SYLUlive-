@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../theme/app_colors.dart';
 import '../campus/campus_theme.dart';
 import '../../models/course_term.dart';
 
@@ -22,7 +23,8 @@ class CourseEmptyStateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const cardPrimary = Color(0xFF168B7D);
+    // 跟随主题包品牌色（原来是写死的 #168B7D，换主题时这一块不变）
+    final cardPrimary = AppColors.brandPrimary;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -178,10 +180,11 @@ class CourseEmptyStateCard extends StatelessWidget {
                 final largeText =
                     MediaQuery.textScalerOf(context).scale(1.0) > 1.2;
                 final items = [
-                  _buildFeatureItem(Icons.sync_rounded, '教务导入'),
-                  _buildFeatureItem(Icons.edit_rounded, '自定义课程'),
-                  _buildFeatureItem(Icons.widgets_rounded, '桌面小组件'),
-                  _buildFeatureItem(Icons.notifications_active_rounded, '上课提醒'),
+                  _buildFeatureItem(Icons.sync_rounded, '教务导入', isDark),
+                  _buildFeatureItem(Icons.edit_rounded, '自定义课程', isDark),
+                  _buildFeatureItem(Icons.widgets_rounded, '桌面小组件', isDark),
+                  _buildFeatureItem(
+                      Icons.notifications_active_rounded, '上课提醒', isDark),
                 ];
 
                 if (!largeText) {
@@ -205,11 +208,12 @@ class CourseEmptyStateCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
+          Text(
             '登录并绑定教务系统后即可解锁以上功能',
             style: TextStyle(
               fontSize: 11,
-              color: CampusTheme.subText,
+              // 深色模式下 CampusTheme.subText 是浅底专用灰，压深底几乎看不见
+              color: isDark ? Colors.white60 : CampusTheme.subText,
             ),
           ),
         ],
@@ -228,17 +232,15 @@ class CourseEmptyStateCard extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureItem(IconData icon, String label) {
+  Widget _buildFeatureItem(IconData icon, String label, bool isDark) {
+    final color = isDark ? Colors.white70 : CampusTheme.subText;
     return Column(
       children: [
-        Icon(icon, size: 24, color: CampusTheme.subText),
+        Icon(icon, size: 24, color: color),
         const SizedBox(height: 8),
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 12,
-            color: CampusTheme.subText,
-          ),
+          style: TextStyle(fontSize: 12, color: color),
         ),
       ],
     );

@@ -356,7 +356,7 @@ class _AdminFeedbackScreenState extends State<AdminFeedbackScreen>
                     ] else ...[
                       Text(
                         ticket.adminStatusDisplayName,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           color: AppColors.brandPrimary,

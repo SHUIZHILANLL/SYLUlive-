@@ -126,7 +126,7 @@ class _CourseTermSwitchSheetState extends State<CourseTermSwitchSheet> {
                         ),
                       ),
                       trailing: isSelected
-                          ? const Icon(Icons.check_circle_rounded,
+                          ? Icon(Icons.check_circle_rounded,
                               color: CampusTheme.primary)
                           : null,
                     ),

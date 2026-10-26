@@ -2,11 +2,50 @@ import 'package:flutter/material.dart';
 
 /// 全局颜色 token 与语义系统。
 abstract final class AppColors {
-  // Brand Tokens
-  static const brandPrimary = Color(0xFF147C72);
-  static const brandPrimaryStrong = Color(0xFF0F635B);
-  static const brandSurfaceLight = Color(0xFFEAF6F3);
-  static const brandSurfaceDark = Color(0xFF162B28);
+  // Brand Tokens —— 主题包可覆盖
+  //
+  // 默认值保持 const（供其它常量参考），对外的 4 个键改成 getter：
+  // 应用主题包时由 applyBrandOverride() 换成包里的品牌色，
+  // 全 App 所有引用自动跟随，不需要改调用点。
+  static const Color brandPrimaryDefault = Color(0xFF147C72);
+  static const Color brandPrimaryStrongDefault = Color(0xFF0F635B);
+  static const Color brandSurfaceLightDefault = Color(0xFFEAF6F3);
+  static const Color brandSurfaceDarkDefault = Color(0xFF162B28);
+
+  static Color? _brandPrimary;
+  static Color? _brandStrong;
+  static Color? _brandSurfaceLight;
+  static Color? _brandSurfaceDark;
+
+  static Color get brandPrimary => _brandPrimary ?? brandPrimaryDefault;
+  static Color get brandPrimaryStrong => _brandStrong ?? brandPrimaryStrongDefault;
+  static Color get brandSurfaceLight => _brandSurfaceLight ?? brandSurfaceLightDefault;
+  static Color get brandSurfaceDark => _brandSurfaceDark ?? brandSurfaceDarkDefault;
+
+  /// 当前是否被主题包覆盖。
+  static bool get hasBrandOverride => _brandPrimary != null;
+
+  /// 用主题包的主色覆盖；派生色按主色推导（深压色/浅底/深底）。
+  static void applyBrandOverride(
+    Color primary, {
+    Color? strong,
+    Color? surfaceLight,
+    Color? surfaceDark,
+  }) {
+    _brandPrimary = primary;
+    _brandStrong = strong ?? _mix(primary, const Color(0xFF000000), 0.20);
+    _brandSurfaceLight = surfaceLight ?? _mix(primary, const Color(0xFFFFFFFF), 0.88);
+    _brandSurfaceDark = surfaceDark ?? _mix(primary, const Color(0xFF111315), 0.82);
+  }
+
+  static void clearBrandOverride() {
+    _brandPrimary = null;
+    _brandStrong = null;
+    _brandSurfaceLight = null;
+    _brandSurfaceDark = null;
+  }
+
+  static Color _mix(Color a, Color b, double t) => Color.lerp(a, b, t)!;
 
   // Status Tokens
   static const success = Color(0xFF169B5B);

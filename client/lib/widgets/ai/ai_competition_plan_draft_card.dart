@@ -61,7 +61,7 @@ class _AiCompetitionPlanDraftCardState
         children: [
           Row(
             children: [
-              const Icon(Icons.playlist_add_rounded,
+              Icon(Icons.playlist_add_rounded,
                   size: 20, color: AppColors.brandPrimary),
               const SizedBox(width: 8),
               const Expanded(

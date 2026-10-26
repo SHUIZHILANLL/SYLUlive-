@@ -58,7 +58,7 @@ class CampusAiEntryCard extends StatelessWidget {
                         : CampusTheme.primaryLight,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.auto_awesome_rounded,
                     color: CampusTheme.primary,
                     size: 23,
@@ -91,7 +91,7 @@ class CampusAiEntryCard extends StatelessWidget {
                 ),
                 Text(
                   quotaBadge,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: CampusTheme.primary,
                     fontSize: 12,
                     fontWeight: FontWeight.w700,

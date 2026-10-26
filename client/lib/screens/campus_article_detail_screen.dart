@@ -415,7 +415,7 @@ class _CampusArticleDetailScreenState extends State<CampusArticleDetailScreen> {
   // ── 文章头部 ───────────────────────────────────────────────────
 
   Widget _buildHeader(bool isDark, CampusArticleDetail detail) {
-    const primary = AppColors.brandPrimary;
+    final primary = AppColors.brandPrimary;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -615,7 +615,7 @@ class _CampusArticleDetailScreenState extends State<CampusArticleDetailScreen> {
   }
 
   Widget _buildAttachmentCard(bool isDark, CampusAttachment attachment) {
-    const primary = AppColors.brandPrimary;
+    final primary = AppColors.brandPrimary;
     final isUrlSafe = attachment.isUrlSafe;
 
     return Container(
@@ -643,7 +643,7 @@ class _CampusArticleDetailScreenState extends State<CampusArticleDetailScreen> {
                   children: [
                     Text(
                       attachment.extensionLabel,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
                         color: primary,
@@ -721,7 +721,7 @@ class _CampusArticleDetailScreenState extends State<CampusArticleDetailScreen> {
   // ── 查看学校原文 ───────────────────────────────────────────────
 
   Widget _buildSourceLink(bool isDark, String sourceUrl) {
-    const primary = AppColors.brandPrimary;
+    final primary = AppColors.brandPrimary;
     final isUrlSafe = isSafeCampusUrl(sourceUrl);
 
     return SizedBox(

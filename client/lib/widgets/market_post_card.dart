@@ -13,6 +13,7 @@ import '../utils/post_image_cache.dart';
 import '../utils/post_media_access.dart';
 import 'cached_avatar.dart';
 import 'post_media/post_media_view.dart';
+import '../theme/app_colors.dart';
 
 final class _CardTokens {
   static Color cardBg(bool isDark) =>
@@ -28,11 +29,13 @@ final class _CardTokens {
       isDark ? Colors.grey.shade400 : const Color(0xFF747B82);
 
   static Color accent(bool isDark) =>
-      isDark ? const Color(0xFFFFA06D) : const Color(0xFFFF7A45);
+      isDark
+          ? Color.alphaBlend(Colors.white.withValues(alpha: 0.18), AppColors.brandPrimary)
+          : AppColors.brandPrimary;
 
   static Color accentSoft(bool isDark) => isDark
-      ? const Color(0xFFFFA06D).withValues(alpha: 0.14)
-      : const Color(0xFFFFF0E8);
+      ? AppColors.brandSurfaceDark
+      : AppColors.brandSurfaceLight;
 
   static Color priceColor(bool _) => const Color(0xFFE76F51);
 

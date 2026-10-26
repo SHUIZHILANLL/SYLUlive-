@@ -78,7 +78,7 @@ class _AdminAiControlSheetState extends State<AdminAiControlSheet> {
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceSecondaryDark : Colors.white,
         borderRadius:
-            const BorderRadius.vertical(top: Radius.circular(AppRadius.sheet)),
+            BorderRadius.vertical(top: Radius.circular(AppRadius.sheet)),
       ),
       child: Column(
         children: [
@@ -93,7 +93,7 @@ class _AdminAiControlSheetState extends State<AdminAiControlSheet> {
             padding: const EdgeInsets.fromLTRB(20, 14, 12, 12),
             child: Row(
               children: [
-                const Icon(Icons.tune_rounded, color: AppColors.brandPrimary),
+                Icon(Icons.tune_rounded, color: AppColors.brandPrimary),
                 const SizedBox(width: 10),
                 const Expanded(
                   child: Column(
@@ -162,7 +162,7 @@ class _AdminAiControlSheetState extends State<AdminAiControlSheet> {
                           : _error == null
                               ? '生产在线'
                               : '状态未知',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 10.5,
                           color: AppColors.brandPrimary,
                           fontWeight: FontWeight.w700))),

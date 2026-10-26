@@ -413,7 +413,7 @@ class _CourseSettingsHeaderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    const primary = CampusTheme.primary;
+    final primary = CampusTheme.primary;
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -424,7 +424,7 @@ class _CourseSettingsHeaderCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             '课表管理与显示',
             style: TextStyle(
               color: primary,

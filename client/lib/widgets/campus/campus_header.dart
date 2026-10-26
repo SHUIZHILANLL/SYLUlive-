@@ -93,7 +93,7 @@ class CampusHeader extends StatelessWidget {
             ),
             child: Column(
               children: [
-                const Text(
+                Text(
                   '第18周', // TODO: 接入校历后替换为真实周次
                   style: TextStyle(
                     fontSize: 11,
@@ -124,7 +124,7 @@ class CampusHeader extends StatelessWidget {
                         backgroundColor: CampusTheme.primary.withValues(
                           alpha: isDark ? 0.16 : 0.1,
                         ),
-                        valueColor: const AlwaysStoppedAnimation(
+                        valueColor: AlwaysStoppedAnimation(
                           CampusTheme.primary,
                         ),
                       ),

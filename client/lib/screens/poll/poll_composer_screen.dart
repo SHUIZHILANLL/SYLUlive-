@@ -27,7 +27,7 @@ class PollComposerScreen extends StatefulWidget {
 }
 
 class _PollComposerScreenState extends State<PollComposerScreen> {
-  static const _accent = CampusTheme.primary;
+  static final _accent = CampusTheme.primary;
   static const _categoryNames = {
     'campus_life': '校园生活',
     'study': '学习',
@@ -321,7 +321,7 @@ class _PollComposerScreenState extends State<PollComposerScreen> {
               .map((controller) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Row(children: [
-                      const Icon(Icons.radio_button_off,
+                      Icon(Icons.radio_button_off,
                           size: 19, color: _accent),
                       const SizedBox(width: 8),
                       Expanded(
@@ -401,7 +401,7 @@ class _PollComposerScreenState extends State<PollComposerScreen> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                           color: CampusTheme.primary, width: 1),
                     ),
                   ),
@@ -440,7 +440,7 @@ class _PollComposerScreenState extends State<PollComposerScreen> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(
+                      borderSide: BorderSide(
                           color: CampusTheme.primary, width: 1),
                     ),
                   ),
@@ -492,7 +492,7 @@ class _PollComposerScreenState extends State<PollComposerScreen> {
                                   CampusTheme.primary.withValues(alpha: 0.3)),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Column(
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.add, size: 34, color: _accent),
@@ -694,7 +694,7 @@ class _PollComposerScreenState extends State<PollComposerScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.security, size: 14, color: CampusTheme.primary),
@@ -779,7 +779,7 @@ class _PollComposerScreenState extends State<PollComposerScreen> {
           padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
           child: Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.visibility_outlined,
                 size: 19,
                 color: CampusTheme.primary,
@@ -883,7 +883,7 @@ class _PollComposerScreenState extends State<PollComposerScreen> {
 }
 
 class _Notice extends StatelessWidget {
-  static const _noticeAccent = CampusTheme.primary;
+  static final _noticeAccent = CampusTheme.primary;
   final String text;
   const _Notice({required this.text});
 
@@ -897,7 +897,7 @@ class _Notice extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Icon(Icons.info_outline, size: 19, color: _noticeAccent),
+        Icon(Icons.info_outline, size: 19, color: _noticeAccent),
         const SizedBox(width: 8),
         Expanded(
             child: Text(text,

@@ -124,7 +124,7 @@ class _AcademicRequirementCardState extends State<AcademicRequirementCard> {
                           ),
                         Text(
                           '已获 ${_formatCredits(module.earnedCredits)} 学分',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
                             color: AppColors.brandPrimary,

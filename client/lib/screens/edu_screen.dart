@@ -14,6 +14,7 @@ import '../widgets/campus/campus_theme.dart';
 import '../widgets/course/course_import_sheet.dart';
 import '../widgets/course/course_preview_sheet.dart';
 import '../features/academic/domain/academic_provider.dart';
+import '../../theme/scaffold_bg.dart';
 
 class EduScreen extends StatefulWidget {
   const EduScreen({super.key});
@@ -76,7 +77,7 @@ class _EduScreenState extends State<EduScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDark ? CampusTheme.darkBg : CampusTheme.bg,
+      backgroundColor: scaffoldBackgroundFor(context, isDark: isDark),
       appBar: AppBar(
         title: Text(
           '教务系统',
@@ -515,7 +516,7 @@ class _EduScreenState extends State<EduScreen> {
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text('已导入，可到课表页查看'),
           backgroundColor: CampusTheme.primary,
         ),

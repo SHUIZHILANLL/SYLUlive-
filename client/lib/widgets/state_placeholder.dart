@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../features/theme_pack/presentation/widgets/pack_mascot.dart';
 import '../theme/app_motion.dart';
 
 /// 统一空态 / 加载态 / 错误态占位组件。
@@ -71,26 +72,33 @@ class StatePlaceholder extends StatelessWidget {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    width: circleSize,
-                    height: circleSize,
-                    decoration: BoxDecoration(
-                      color: isDark
-                          ? Colors.white.withValues(alpha: 0.07)
-                          : const Color(0xFFF3EFEA),
-                      shape: BoxShape.circle,
+                  // 优先级：主题包状态插图 > 主题包角色 > 原圆形图标。
+                  // loading 态仍然优先用 spinner（不能挡住进度反馈）。
+                  if (!loading && ThemePackMascot.stateArtPath != null)
+                    PackStateArt(size: tight ? 64 : (compact ? 88 : 132))
+                  else if (!loading && ThemePackMascot.available)
+                    PackMascotImage(size: tight ? 56 : (compact ? 72 : 104))
+                  else
+                    Container(
+                      width: circleSize,
+                      height: circleSize,
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? Colors.white.withValues(alpha: 0.07)
+                            : const Color(0xFFF3EFEA),
+                        shape: BoxShape.circle,
+                      ),
+                      child: loading
+                          ? const SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: Center(
+                                child:
+                                    CircularProgressIndicator(strokeWidth: 2.4),
+                              ),
+                            )
+                          : Icon(icon, size: compact ? 28 : 32, color: accent),
                     ),
-                    child: loading
-                        ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: Center(
-                              child:
-                                  CircularProgressIndicator(strokeWidth: 2.4),
-                            ),
-                          )
-                        : Icon(icon, size: compact ? 28 : 32, color: accent),
-                  ),
                   SizedBox(
                       height: tight
                           ? 10

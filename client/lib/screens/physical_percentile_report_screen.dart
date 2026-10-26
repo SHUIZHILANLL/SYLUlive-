@@ -52,7 +52,7 @@ class _PhysicalPercentileReportScreenState
         future: _serviceFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
-            return const Center(
+            return Center(
               child: CircularProgressIndicator(color: AppColors.brandPrimary),
             );
           }
@@ -121,7 +121,7 @@ class _PhysicalPercentileReportScreenState
                       : AppColors.brandSurfaceLight,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.insights_rounded,
                   color: AppColors.brandPrimary,
                   size: 23,
@@ -421,7 +421,7 @@ class _HighlightRow extends StatelessWidget {
           ),
           Text(
             '超过 ${metric.comparison.percentile}%',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w800,
               color: AppColors.brandPrimary,

@@ -144,7 +144,7 @@ class _Chip extends StatelessWidget {
                   if (trailing.isNotEmpty) ...[
                     const SizedBox(width: 4),
                     Text(trailing,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: AppColors.brandPrimary,
                             fontSize: 10.5,
                             fontWeight: FontWeight.w700)),

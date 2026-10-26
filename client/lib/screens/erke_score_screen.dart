@@ -1040,7 +1040,7 @@ class _ErkeScoreScreenState extends State<ErkeScoreScreen> {
             ),
           ),
           if (_repo.isYearlyLoading)
-            const SizedBox(
+            SizedBox(
               width: 16,
               height: 16,
               child: CircularProgressIndicator(
@@ -1350,7 +1350,7 @@ class _ErkeScoreScreenState extends State<ErkeScoreScreen> {
               ListTile(
                 title: const Text('全部'),
                 trailing: _filterCategory == null
-                    ? const Icon(Icons.check, color: AppColors.brandPrimary)
+                    ? Icon(Icons.check, color: AppColors.brandPrimary)
                     : null,
                 onTap: () {
                   setState(() => _filterCategory = null);
@@ -1360,7 +1360,7 @@ class _ErkeScoreScreenState extends State<ErkeScoreScreen> {
               ...categories.map((c) => ListTile(
                     title: Text(c),
                     trailing: _filterCategory == c
-                        ? const Icon(Icons.check, color: AppColors.brandPrimary)
+                        ? Icon(Icons.check, color: AppColors.brandPrimary)
                         : null,
                     onTap: () {
                       setState(() => _filterCategory = c);

@@ -320,11 +320,12 @@ class AiThinkingIndicator extends StatefulWidget {
   const AiThinkingIndicator({
     super.key,
     this.size = 16,
-    this.color = AppColors.brandPrimary,
+    this.color,
   });
 
   final double size;
-  final Color color;
+  /// 为 null 时用品牌色（品牌色可被主题包覆盖，不能做 const 默认值）。
+  final Color? color;
 
   @override
   State<AiThinkingIndicator> createState() => _AiThinkingIndicatorState();

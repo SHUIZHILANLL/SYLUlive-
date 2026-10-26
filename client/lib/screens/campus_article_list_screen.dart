@@ -265,7 +265,7 @@ class _CampusArticleListScreenState extends State<CampusArticleListScreen> {
   // ── 分类筛选标签 ───────────────────────────────────────────────
 
   Widget _buildFilterTabs(bool isDark) {
-    const primary = CampusTheme.primary;
+    final primary = CampusTheme.primary;
 
     return SizedBox(
       height: 38,
@@ -350,7 +350,7 @@ class _CampusArticleListScreenState extends State<CampusArticleListScreen> {
   }
 
   Widget _buildArticleItem(bool isDark, CampusArticleSummary article) {
-    const primary = CampusTheme.primary;
+    final primary = CampusTheme.primary;
     // 比赛通知用橙金色，教务通知/公告保持主色
     final tagColor = article.source == 'cxcy' ? CampusTheme.orange : primary;
 

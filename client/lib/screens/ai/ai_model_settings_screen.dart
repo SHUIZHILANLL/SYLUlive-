@@ -294,7 +294,7 @@ class _AIModelSettingsScreenState extends State<AIModelSettingsScreen> {
                                 ),
                               ),
                               if (selected)
-                                const Icon(
+                                Icon(
                                   Icons.check_circle_rounded,
                                   size: 21,
                                   color: CampusTheme.primary,

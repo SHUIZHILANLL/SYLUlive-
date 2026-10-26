@@ -1668,7 +1668,7 @@ class _ShuitieScreenState extends State<ShuitieScreen>
 
   Widget _buildFeedTabs(bool isDark) {
     const tabWidth = 56.0;
-    const activeColor = AppColors.brandPrimary;
+    final activeColor = AppColors.brandPrimary;
     final inactiveColor =
         isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight;
 

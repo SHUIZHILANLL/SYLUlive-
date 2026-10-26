@@ -166,7 +166,7 @@ class _FeedbackCreateScreenState extends State<FeedbackCreateScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: isDark ? const Color(0xFF1E2226) : Colors.white,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius:
             BorderRadius.vertical(top: Radius.circular(AppRadius.sheet)),
       ),
@@ -338,7 +338,7 @@ class _FeedbackCreateScreenState extends State<FeedbackCreateScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
                   Icon(Icons.phonelink_setup_rounded,
                       size: 18, color: AppColors.brandPrimary),
@@ -371,7 +371,7 @@ class _FeedbackCreateScreenState extends State<FeedbackCreateScreen> {
               alignment: Alignment.centerRight,
               child: GestureDetector(
                 onTap: _showDiagnosticsDialog,
-                child: const Text(
+                child: Text(
                   '查看诊断信息 >',
                   style: TextStyle(
                     fontSize: 12,
@@ -524,7 +524,7 @@ class _FeedbackCreateScreenState extends State<FeedbackCreateScreen> {
                       const SizedBox(width: 6),
                       Text(
                         _expandRepro ? '收起复现信息' : '＋ 补充复现信息 (可选)',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13,
                           color: AppColors.brandPrimary,
                           fontWeight: FontWeight.w600,

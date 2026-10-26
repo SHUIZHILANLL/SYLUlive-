@@ -123,7 +123,7 @@ class CoursePreviewTile extends StatelessWidget {
             child: Text(
               providerPeriodLabel ??
                   (hasValidSection ? '第$startSection-$endSection节' : '节次未知'),
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
                 color: CampusTheme.primary,

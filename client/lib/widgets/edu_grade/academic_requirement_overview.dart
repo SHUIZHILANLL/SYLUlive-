@@ -67,7 +67,7 @@ class _AcademicRequirementOverviewState
                 ),
                 const SizedBox(width: 8),
                 if (widget.isBackgroundRefresh)
-                  const SizedBox(
+                  SizedBox(
                     width: 14,
                     height: 14,
                     child: CircularProgressIndicator(

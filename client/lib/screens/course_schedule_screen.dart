@@ -1472,7 +1472,7 @@ class _CourseScheduleScreenState extends State<CourseScheduleScreen> {
                     shape: BoxShape.circle,
                     color: AppColors.brandPrimary.withValues(alpha: 0.12),
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.all(14),
                     child: CircularProgressIndicator(
                       color: AppColors.brandPrimary,

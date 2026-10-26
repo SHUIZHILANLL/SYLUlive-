@@ -751,7 +751,7 @@ class _AdminAnnouncementsScreenState extends State<AdminAnnouncementsScreen> {
                                               if (isPinned) ...[
                                                 const SizedBox(
                                                     width: AppSpacing.xs),
-                                                const Icon(
+                                                Icon(
                                                   Icons.push_pin_rounded,
                                                   size: 15,
                                                   color: AppColors.brandPrimary,
@@ -848,7 +848,7 @@ class _AdminAnnouncementsScreenState extends State<AdminAnnouncementsScreen> {
                                             if (!context.mounted) return;
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
-                                              const SnackBar(
+                                              SnackBar(
                                                 content: Text('公告已删除'),
                                                 backgroundColor:
                                                     AppColors.brandPrimary,

@@ -40,6 +40,7 @@ import 'exam_schedule_screen.dart';
 import 'canteen_screen.dart';
 import 'campus_ranking_screen.dart';
 import 'team/team_recruitment_center_screen.dart';
+import '../../theme/scaffold_bg.dart';
 
 class CampusScreen extends StatefulWidget {
   /// 可选依赖仅用于测试；生产环境继续复用全局 Dio 与鉴权头。
@@ -407,7 +408,7 @@ class _CampusScreenState extends State<CampusScreen>
     final todayShown = _todayItems.isNotEmpty;
 
     return Scaffold(
-      backgroundColor: isDark ? CampusTheme.darkBg : CampusTheme.bg,
+      backgroundColor: scaffoldBackgroundFor(context, isDark: isDark),
       body: SafeArea(
         bottom: false,
         child: RefreshIndicator(

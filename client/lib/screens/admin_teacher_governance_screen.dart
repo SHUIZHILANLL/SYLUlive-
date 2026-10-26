@@ -1404,7 +1404,7 @@ class _AdminTeacherGovernanceScreenState
 
   Widget _buildStepIndicator(int stepIndex, String title, bool isCompleted,
       bool isActive, bool isDark) {
-    const activeColor = AppColors.brandPrimary;
+    final activeColor = AppColors.brandPrimary;
     final inactiveColor = isDark ? Colors.white38 : Colors.grey;
 
     return Row(
@@ -1458,7 +1458,7 @@ class _AdminTeacherGovernanceScreenState
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.info_outline,
+                Icon(Icons.info_outline,
                     size: 18, color: AppColors.brandPrimary),
                 const SizedBox(width: 8),
                 Expanded(
@@ -1838,7 +1838,7 @@ class _AdminTeacherGovernanceScreenState
             ),
             child: Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.info_outline_rounded,
                   size: 18,
                   color: AppColors.brandPrimary,
@@ -1883,7 +1883,7 @@ class _AdminTeacherGovernanceScreenState
                 ),
                 child: Text(
                   '${_sourceCourseTeachers.length} 位源教师',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 11,
                     color: AppColors.brandPrimary,
                     fontWeight: FontWeight.bold,
@@ -2179,7 +2179,7 @@ class _AdminTeacherGovernanceScreenState
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.rule_folder_rounded,
+                    Icon(Icons.rule_folder_rounded,
                         color: AppColors.brandPrimary),
                     const SizedBox(width: 8),
                     Text(
@@ -2392,7 +2392,7 @@ class _AdminTeacherGovernanceScreenState
                         const Spacer(),
                         Text(
                           '统一为「${ptm.finalTeacherName}」',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             color: AppColors.brandPrimary,
                             fontWeight: FontWeight.bold,
@@ -2918,7 +2918,7 @@ class _AdminTeacherGovernanceScreenState
                           Expanded(
                             child: Text(
                               '${r.keeperName} (${r.keeperSubject})',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.brandPrimary,
                               ),
@@ -3106,7 +3106,7 @@ class _AdminTeacherGovernanceScreenState
             Expanded(
               child: Text(
                 '${item.targetName} (${item.type == 'teacher' ? '教师' : '学科'} #${item.targetId})',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.brandPrimary,
                   fontWeight: FontWeight.w600,
                 ),
@@ -3292,7 +3292,7 @@ class _AdminTeacherGovernanceScreenState
                           color: AppColors.brandPrimary.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Text(
+                        child: Text(
                           '建议保留',
                           style: TextStyle(
                             fontSize: 10,
@@ -3391,7 +3391,7 @@ class _AdminTeacherGovernanceScreenState
                 color: AppColors.brandPrimary.withValues(alpha: 0.12),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.task_alt_rounded,
                 color: AppColors.brandPrimary,
                 size: 32,
@@ -3840,7 +3840,7 @@ class _TeacherMergeBottomSheetState extends State<_TeacherMergeBottomSheet> {
       ),
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceSecondaryDark : Colors.white,
-        borderRadius: const BorderRadius.vertical(
+        borderRadius: BorderRadius.vertical(
           top: Radius.circular(AppRadius.sheet),
         ),
       ),
@@ -3860,7 +3860,7 @@ class _TeacherMergeBottomSheetState extends State<_TeacherMergeBottomSheet> {
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
             child: Row(
               children: [
-                const Icon(Icons.merge_type_rounded,
+                Icon(Icons.merge_type_rounded,
                     color: AppColors.brandPrimary),
                 const SizedBox(width: 8),
                 Text(
@@ -4101,7 +4101,7 @@ class _TeacherMergeBottomSheetState extends State<_TeacherMergeBottomSheet> {
                                 _fetchPreview();
                               }
                             },
-                            child: const Column(
+                            child: Column(
                               children: [
                                 RadioListTile<CrossSubjectDecision>(
                                   contentPadding: EdgeInsets.zero,
@@ -4468,7 +4468,7 @@ class _GovernanceCoursePickerModalState
       ),
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceSecondaryDark : Colors.white,
-        borderRadius: const BorderRadius.vertical(
+        borderRadius: BorderRadius.vertical(
           top: Radius.circular(AppRadius.sheet),
         ),
       ),

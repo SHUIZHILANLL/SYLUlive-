@@ -82,7 +82,7 @@ class _AiAgentPermissionSheetState extends State<AiAgentPermissionSheet> {
       constraints: const BoxConstraints(maxHeight: 460),
       decoration: BoxDecoration(
         color: isDark ? AppColors.surfaceSecondaryDark : Colors.white,
-        borderRadius: const BorderRadius.vertical(
+        borderRadius: BorderRadius.vertical(
           top: Radius.circular(AppRadius.sheet),
         ),
       ),

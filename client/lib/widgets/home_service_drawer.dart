@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../config/water_post_taxonomy.dart';
 import '../models/announcement.dart' as model;
 import '../models/water_section.dart';
-import '../providers/theme_provider.dart';
 import 'group_chat_dialog.dart';
 import 'water_section/section_avatar.dart';
+import '../providers/theme_provider.dart';
 
 /// 校园服务抽屉 —— 纯展示组件，所有数据和回调由外部提供。
 class HomeServiceDrawer extends StatelessWidget {
@@ -63,14 +62,8 @@ class HomeServiceDrawer extends StatelessWidget {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final drawerWidth = (screenWidth * 0.8).clamp(0.0, 360.0);
 
-    final themeProvider = context.watch<ThemeProvider>();
-    final isCustomMode = !themeProvider.isCleanBackgroundMode;
-
-    final drawerBg = isDark
-        ? const Color(0xFF151A24)
-        : isCustomMode
-            ? kCleanWarmBackgroundLight.withValues(alpha: 0.96)
-            : kCleanWarmBackgroundLight;
+    // 抽屉保持纯色不透明（不使用壁纸）
+    final drawerBg = isDark ? const Color(0xFF151A24) : kCleanWarmBackgroundLight;
 
     return Container(
       width: drawerWidth,

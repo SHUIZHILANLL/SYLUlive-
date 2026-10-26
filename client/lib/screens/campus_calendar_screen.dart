@@ -19,6 +19,7 @@ import '../services/unified_timeline_service.dart';
 import '../utils/app_feedback.dart';
 import 'ai/ai_assistant_screen.dart';
 import '../widgets/campus/campus_theme.dart';
+import '../../theme/scaffold_bg.dart';
 
 class CampusCalendarScreen extends StatefulWidget {
   const CampusCalendarScreen({super.key});
@@ -1696,10 +1697,10 @@ class _OfficialCalendarSourceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: isDark ? CampusTheme.darkBg : CampusTheme.bg,
+      backgroundColor: scaffoldBackgroundFor(context, isDark: isDark),
       appBar: AppBar(
         title: const Text('官方校历原图'),
-        backgroundColor: isDark ? CampusTheme.darkBg : CampusTheme.bg,
+        backgroundColor: scaffoldBackgroundFor(context, isDark: isDark),
         surfaceTintColor: Colors.transparent,
       ),
       body: InteractiveViewer(

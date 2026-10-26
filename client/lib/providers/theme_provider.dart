@@ -6,7 +6,13 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shenliyuan/models/startup_destination.dart';
 import 'package:shenliyuan/platform/contracts/preferences_store.dart';
 import 'package:shenliyuan/services/root_page_state_service.dart';
+import 'package:shenliyuan/features/theme_pack/domain/theme_pack.dart';
+import 'package:shenliyuan/features/theme_pack/presentation/widgets/pack_mascot.dart';
+import 'package:shenliyuan/theme/app_colors.dart';
+import 'package:shenliyuan/theme/app_radius.dart';
+import 'package:shenliyuan/theme/app_theme.dart';
 import 'package:shenliyuan/theme/app_text_scaler.dart';
+import '../theme/background_seed.dart';
 
 enum AppBackgroundMode {
   clean,
@@ -186,7 +192,31 @@ class ThemeProvider extends ChangeNotifier {
 
   static const String _frostedGlassKey = 'frosted_glass_enabled';
 
+  // ---- 主题包（.syltheme）相关键 -------------------------------------------
+  // 刻意把"生效值"也存一份：启动时不需要读包文件就能恢复圆角/插画，
+  // 避免主题包目录被删导致启动阶段出现不一致。
+  static const String _themePackIdKey = 'theme_pack_id';
+  static const String _themePackMascotKey = 'theme_pack_mascot_path';
+  static const String _themePackWallpaperKey = 'theme_pack_wallpaper_path';
+  static const String _themePackPrevImageKey = 'theme_pack_prev_image';
+  static const String _themePackPrevFillKey = 'theme_pack_prev_fill';
+  static const String _themePackRadiusSmKey = 'theme_pack_radius_sm';
+  static const String _themePackRadiusMdKey = 'theme_pack_radius_md';
+  static const String _themePackRadiusLgKey = 'theme_pack_radius_lg';
+  static const String _themePackRadiusSheetKey = 'theme_pack_radius_sheet';
+  static const String _themePackBrandKey = 'theme_pack_brand';
+  static const String _themePackStateArtKey = 'theme_pack_state_art';
+  static const String _backgroundSeedKey = 'background_seed_color';
+
   bool _isLoaded = false;
+
+  /// 当前应用的主题包 id（null = 默认主题）。
+  String? _appliedThemePackId;
+
+  /// 应用主题包前的背景状态，用于取消时还原。
+  String? _preThemePackImage;
+  bool _preThemePackFill = false;
+  bool _hadThemePackWallpaper = false;
   bool _isDarkMode = false;
   bool _followSystem = true;
   AppFontSizePreset _fontSizePreset = AppFontSizePreset.standard;
@@ -197,8 +227,7 @@ class ThemeProvider extends ChangeNotifier {
   bool _landscapeBackgroundFillScreen = false;
   double _backgroundBlur = _defaultBackgroundBlur;
   double _componentOpacity = 0.7;
-  bool _frostedGlass = _defaultFrostedGlass;
-  bool _liquidGlass = false;
+  bool _frostedGlass = _defaultFrostedGlass;  bool _liquidGlass = false;
   bool _floatingNavBar = true;
   BottomNavStyle _bottomNavStyle = BottomNavStyle.floating;
   BottomNavPerformanceMode _bottomNavPerformanceMode =
@@ -392,6 +421,29 @@ class ThemeProvider extends ChangeNotifier {
     _backgroundBlur =
         prefs.getDouble(_backgroundBlurKey) ?? _defaultBackgroundBlur;
     _componentOpacity = prefs.getDouble(_componentOpacityKey) ?? 0.7;
+
+    // 主题包：只按持久化的生效值恢复，不依赖包目录是否存在
+    _appliedThemePackId = prefs.getString(_themePackIdKey);
+    final radiusSm = prefs.getDouble(_themePackRadiusSmKey);
+    final radiusMd = prefs.getDouble(_themePackRadiusMdKey);
+    final radiusLg = prefs.getDouble(_themePackRadiusLgKey);
+    final radiusSheet = prefs.getDouble(_themePackRadiusSheetKey);
+    if (radiusSm != null || radiusMd != null || radiusLg != null || radiusSheet != null) {
+      AppRadius.applyOverrides(
+        sm: radiusSm,
+        md: radiusMd,
+        lg: radiusLg,
+        sheet: radiusSheet,
+      );
+    }
+    ThemePackMascot.setPath(prefs.getString(_themePackMascotKey));
+    ThemePackMascot.setStateArt(prefs.getString(_themePackStateArtKey));
+    final brandHex = prefs.getString(_themePackBrandKey);
+    if (brandHex != null && brandHex.isNotEmpty) {
+      final restored = _parseHex(brandHex);
+      AppTheme.setBrandSeed(restored);
+      if (restored != null) AppColors.applyBrandOverride(restored);
+    }
     _frostedGlass =
         prefs.getBool(_frostedGlassKey) ?? _defaultFrostedGlass;
     final storedStyle = BottomNavStyleStorage.fromStorage(
@@ -443,6 +495,13 @@ class ThemeProvider extends ChangeNotifier {
       unawaited(prefs.setString(_backgroundImageKey, _defaultPhoneWallpaper));
       unawaited(prefs.setBool(_backgroundFillScreenKey, false));
     }
+
+    // 自定义背景模式下，品牌色以「背景提取色」为准（覆盖主题包品牌色）。
+    // 放在最后：此时 _backgroundMode 与 _backgroundImage 都已恢复。
+    // _applyStoredPreferences 不是 async，这里异步触发，靠 notifyListeners 刷新。
+    if (_backgroundMode == AppBackgroundMode.custom) {
+      unawaited(refreshBrandFromBackground());
+    }
   }
 
   Future<void> _setBackgroundMode(AppBackgroundMode mode) async {
@@ -454,11 +513,13 @@ class ThemeProvider extends ChangeNotifier {
 
   Future<void> setCleanBackgroundMode() async {
     await _setBackgroundMode(AppBackgroundMode.clean);
+    await refreshBrandFromBackground();
   }
 
   Future<bool> trySetCustomBackgroundMode() async {
     if (!hasAnyBackground) return false;
     await _setBackgroundMode(AppBackgroundMode.custom);
+    await refreshBrandFromBackground();
     return true;
   }
 
@@ -519,9 +580,178 @@ class ThemeProvider extends ChangeNotifier {
     }
     notifyListeners();
 
+    // 背景变了 → 品牌色跟着变
+    await refreshBrandFromBackground();
+
     if (oldPath != imageUrl) {
       await _tryDeleteLocalManagedFile(oldPath);
     }
+  }
+
+
+  /// 按当前自定义背景重算品牌色。
+  ///
+  /// 只在「自定义背景模式 + 本地文件」时生效；否则回落到主题包品牌色或默认色。
+  /// 写入面仍然是 AppColors / AppTheme 这一个品牌入口（ADR-001）。
+  Future<void> refreshBrandFromBackground() async {
+    final prefs = await AppPreferencesStore.getInstance();
+
+    if (!isCustomBackgroundMode) {
+      await _restoreBrandWithoutBackground(prefs);
+      return;
+    }
+    final path = _backgroundImage;
+    if (path == null || path.isEmpty) {
+      await _restoreBrandWithoutBackground(prefs);
+      return;
+    }
+    final color = await BackgroundSeed.fromSource(path);
+    if (color == null) {
+      await _restoreBrandWithoutBackground(prefs);
+      return;
+    }
+    AppColors.applyBrandOverride(color);
+    AppTheme.setBrandSeed(color);
+    await prefs.setString(_backgroundSeedKey, _toHex(color));
+    notifyListeners();
+  }
+
+  /// 背景色不可用时：优先主题包品牌色，其次默认色。
+  Future<void> _restoreBrandWithoutBackground(AppPreferencesStore prefs) async {
+    final brandHex = prefs.getString(_themePackBrandKey);
+    final packBrand = brandHex == null ? null : _parseHex(brandHex);
+    if (packBrand != null) {
+      AppColors.applyBrandOverride(packBrand);
+      AppTheme.setBrandSeed(packBrand);
+    } else {
+      AppColors.clearBrandOverride();
+      AppTheme.setBrandSeed(null);
+    }
+    await prefs.remove(_backgroundSeedKey);
+    notifyListeners();
+  }
+
+  /// #AARRGGBB 文本，用于持久化品牌种子色。
+  static String _toHex(Color color) =>
+      '#${color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}';
+
+  /// 解析 #AARRGGBB / #RRGGBB。
+  static Color? _parseHex(String text) {
+    var v = text.trim().replaceFirst('#', '');
+    if (v.length == 6) v = 'FF$v';
+    if (v.length != 8) return null;
+    final value = int.tryParse(v, radix: 16);
+    return value == null ? null : Color(value);
+  }
+
+  /// 当前应用的主题包 id（null 表示默认主题）。
+  String? get appliedThemePackId => _appliedThemePackId;
+
+  /// 应用一个主题包（传 null 表示回到默认主题）。
+  ///
+  /// 本阶段只影响：圆角 token、玻璃预设、壁纸、空态插画。
+  /// 颜色（AppColors）与图标/字体属于后续阶段，这里不动。
+  Future<void> applyThemePack(ThemePack? pack) async {
+    final prefs = await AppPreferencesStore.getInstance();
+    if (pack == null) {
+      _appliedThemePackId = null;
+      AppRadius.resetOverrides();
+      ThemePackMascot.setStateArt(null);
+      await prefs.remove(_themePackStateArtKey);
+      AppTheme.setBrandSeed(null);
+      AppColors.clearBrandOverride();
+      await prefs.remove(_themePackBrandKey);
+      ThemePackMascot.clear();
+      await prefs.remove(_themePackIdKey);
+      await prefs.remove(_themePackMascotKey);
+      await prefs.remove(_themePackWallpaperKey);
+      await prefs.remove(_themePackRadiusSmKey);
+      await prefs.remove(_themePackRadiusMdKey);
+      await prefs.remove(_themePackRadiusLgKey);
+      await prefs.remove(_themePackRadiusSheetKey);
+      // 还原应用前的背景：优先用内存里的，其次用持久化的（跨重启）
+      final restoreImage = _hadThemePackWallpaper
+          ? _preThemePackImage
+          : prefs.getString(_themePackPrevImageKey);
+      final restoreFill = _hadThemePackWallpaper
+          ? _preThemePackFill
+          : (prefs.getBool(_themePackPrevFillKey) ?? false);
+      if (_hadThemePackWallpaper || restoreImage != null) {
+        _hadThemePackWallpaper = false;
+        _preThemePackImage = null;
+        _preThemePackFill = false;
+        await setBackgroundImage(restoreImage, fillScreen: restoreFill);
+      }
+      await prefs.remove(_themePackPrevImageKey);
+      await prefs.remove(_themePackPrevFillKey);
+      notifyListeners();
+      return;
+    }
+
+    final light = pack.light;
+    // 品牌种子色：Material 组件的色板由它派生（按钮/Tab/开关/进度条…）
+    final brand = light.brandPrimary;
+    if (brand != null) {
+      AppColors.applyBrandOverride(brand);
+      AppTheme.setBrandSeed(brand);
+      await prefs.setString(_themePackBrandKey, _toHex(brand));
+    }
+    AppRadius.applyOverrides(
+      sm: light.radius('radius.sm'),
+      md: light.radius('radius.md'),
+      lg: light.radius('radius.lg'),
+      sheet: light.radius('radius.sheet'),
+    );
+    await prefs.setDouble(_themePackRadiusSmKey, AppRadius.sm);
+    await prefs.setDouble(_themePackRadiusMdKey, AppRadius.md);
+    await prefs.setDouble(_themePackRadiusLgKey, AppRadius.lg);
+    await prefs.setDouble(_themePackRadiusSheetKey, AppRadius.sheet);
+
+    // 壁纸：只在首次应用时记录原状态，避免来回切换丢失用户原图
+    const wallpaperAsset = 'assets/wallpaper_portrait.jpg';
+    final wallpaper = pack.hasAsset(wallpaperAsset) ? pack.assetPath(wallpaperAsset) : null;
+    if (wallpaper != null && File(wallpaper).existsSync()) {
+      if (!_hadThemePackWallpaper) {
+        _preThemePackImage = _backgroundImage;
+        _preThemePackFill = _backgroundFillScreen;
+        _hadThemePackWallpaper = true;
+        final prev = _preThemePackImage;
+        if (prev != null && prev.isNotEmpty) {
+          await prefs.setString(_themePackPrevImageKey, prev);
+        } else {
+          await prefs.remove(_themePackPrevImageKey);
+        }
+        await prefs.setBool(_themePackPrevFillKey, _preThemePackFill);
+      }
+      await setBackgroundImage(wallpaper, fillScreen: true);
+      await prefs.setString(_themePackWallpaperKey, wallpaper);
+    }
+
+    // 空态插画（可缺）
+    const mascotAsset = 'assets/mascot_idle.png';
+    final mascot = pack.hasAsset(mascotAsset) ? pack.assetPath(mascotAsset) : null;
+    if (mascot != null && File(mascot).existsSync()) {
+      ThemePackMascot.setPath(mascot);
+      await prefs.setString(_themePackMascotKey, mascot);
+    } else {
+      ThemePackMascot.clear();
+      await prefs.remove(_themePackMascotKey);
+    }
+
+    // 状态插图（可选）
+    const stateArtAsset = 'assets/state_art.jpg';
+    final stateArt = pack.hasAsset(stateArtAsset) ? pack.assetPath(stateArtAsset) : null;
+    if (stateArt != null && File(stateArt).existsSync()) {
+      ThemePackMascot.setStateArt(stateArt);
+      await prefs.setString(_themePackStateArtKey, stateArt);
+    } else {
+      ThemePackMascot.setStateArt(null);
+      await prefs.remove(_themePackStateArtKey);
+    }
+
+    _appliedThemePackId = pack.id;
+    await prefs.setString(_themePackIdKey, pack.id);
+    notifyListeners();
   }
 
   Future<void> setLandscapeBackgroundImage(

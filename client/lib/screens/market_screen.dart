@@ -14,6 +14,8 @@ import '../utils/app_navigator.dart';
 import '../widgets/market_post_card.dart';
 import 'create_post_screen.dart';
 import 'post_detail_screen.dart';
+import '../theme/scaffold_bg.dart';
+import '../theme/app_colors.dart';
 
 abstract final class AppLayout {
   static const double floatingNavHeight = 64;
@@ -22,18 +24,17 @@ abstract final class AppLayout {
 }
 
 final class _MarketTokens {
-  static Color pageBg(bool isDark) =>
-      isDark ? const Color(0xFF111315) : const Color(0xFFFFFAF4);
-
   static Color cardBg(bool isDark) =>
       isDark ? const Color(0xFF1E2226) : Colors.white;
 
-  static Color accent(bool isDark) =>
-      isDark ? const Color(0xFFFFA06D) : const Color(0xFFFF7A45);
+  // 强调色跟随主题包品牌色（AppColors 已被主题包覆盖），不再写死橙色。
+  static Color accent(bool isDark) => isDark
+      ? Color.alphaBlend(Colors.white.withValues(alpha: 0.18), AppColors.brandPrimary)
+      : AppColors.brandPrimary;
 
   static Color accentSoft(bool isDark) => isDark
-      ? const Color(0xFFFFA06D).withValues(alpha: 0.14)
-      : const Color(0xFFFFF0E8);
+      ? AppColors.brandSurfaceDark
+      : AppColors.brandSurfaceLight;
 
   static Color borderColor(bool isDark) =>
       isDark ? Colors.white.withValues(alpha: 0.08) : const Color(0xFFF1E5DC);
@@ -598,7 +599,7 @@ class _MarketScreenState extends State<MarketScreen> {
     final themeProvider = context.watch<ThemeProvider>();
 
     return Scaffold(
-      backgroundColor: _MarketTokens.pageBg(isDark),
+      backgroundColor: scaffoldBackgroundFor(context, isDark: isDark),
       appBar: null,
       body: Consumer<PostProvider>(
         builder: (context, postProvider, child) {
@@ -638,7 +639,7 @@ class _MarketScreenState extends State<MarketScreen> {
               Positioned.fill(
                 child: DecoratedBox(
                   decoration:
-                      BoxDecoration(color: _MarketTokens.pageBg(isDark)),
+                      BoxDecoration(color: scaffoldBackgroundFor(context, isDark: isDark)),
                 ),
               ),
               RefreshIndicator(

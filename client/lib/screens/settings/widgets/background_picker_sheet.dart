@@ -468,7 +468,7 @@ class _BackgroundPickerSheetState extends State<BackgroundPickerSheet> {
                                     right: 6,
                                     child: Container(
                                       padding: const EdgeInsets.all(4),
-                                      decoration: const BoxDecoration(
+                                      decoration: BoxDecoration(
                                         color: CampusTheme.primary,
                                         shape: BoxShape.circle,
                                       ),

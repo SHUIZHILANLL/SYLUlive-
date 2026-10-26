@@ -4,17 +4,19 @@ import '../../theme/app_colors.dart';
 
 class PollResultBar extends StatelessWidget {
   final double ratio;
-  final Color color;
+  /// 为 null 时用品牌色（品牌色可被主题包覆盖，所以不能做 const 默认值）。
+  final Color? color;
 
   const PollResultBar({
     super.key,
     required this.ratio,
-    this.color = AppColors.brandPrimary,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     final value = ratio.clamp(0.0, 1.0);
+    final barColor = color ?? AppColors.brandPrimary;
     return ClipRRect(
       borderRadius: BorderRadius.circular(3),
       child: SizedBox(
@@ -22,13 +24,13 @@ class PollResultBar extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            ColoredBox(color: color.withValues(alpha: 0.12)),
+            ColoredBox(color: barColor.withValues(alpha: 0.12)),
             AnimatedFractionallySizedBox(
               duration: const Duration(milliseconds: 220),
               curve: Curves.easeOut,
               alignment: Alignment.centerLeft,
               widthFactor: value,
-              child: ColoredBox(color: color.withValues(alpha: 0.72)),
+              child: ColoredBox(color: barColor.withValues(alpha: 0.72)),
             ),
           ],
         ),

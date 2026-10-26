@@ -35,7 +35,6 @@ import 'providers/water_moderator_provider.dart';
 import 'providers/water_moderation_provider.dart';
 import 'providers/campus_calendar_provider.dart';
 import 'providers/user_calendar_provider.dart';
-import 'theme/app_text_scaler.dart';
 import 'features/academic/application/academic_session_controller.dart';
 import 'features/academic/application/academic_login_coordinator.dart';
 import 'features/academic/data/academic_repository_impl.dart';
@@ -97,7 +96,6 @@ import 'features/ai_device_bridge/device_tool_worker.dart';
 
 import 'platform/platform_bootstrap.dart';
 import 'platform/platform_capabilities.dart';
-import 'widgets/app_update_gate.dart';
 import 'widgets/app_crash_fallback.dart';
 import 'widgets/global_background_wrapper.dart';
 import 'widgets/startup_recovery_screen.dart';
@@ -105,6 +103,7 @@ import 'widgets/required_legal_consent_dialog.dart';
 import 'platform/contracts/preferences_store.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
+import 'widgets/app_shell.dart';
 
 export 'widgets/global_background_wrapper.dart'
     show
@@ -1934,20 +1933,13 @@ class _AppContent extends StatelessWidget {
       navigatorKey: appNavigatorKey,
       navigatorObservers: [appRouteObserver],
       scaffoldMessengerKey: scaffoldMessengerKey,
-      builder: (context, child) {
-        final mediaQuery = MediaQuery.of(context);
-        final appTextScaler = AppTextScaler(
-          mediaQuery.textScaler,
-          themeProvider.fontSizePreset.scaleFactor,
-        ).clamp(maxScaleFactor: AppTextScaler.maxScaleFactor);
-        return MediaQuery(
-          data: mediaQuery.copyWith(textScaler: appTextScaler),
-          child: AppUpdateGate(
-            navigatorKey: appNavigatorKey,
-            child: child ?? const SizedBox.shrink(),
-          ),
-        );
-      },
+      // 全局壳（字号缩放 / 更新门 / 主题包水印）统一在 buildAppShell 里，
+      // 预览入口复用同一套，避免行为漂移。
+      builder: (context, child) => buildAppShell(
+        context: context,
+        child: child,
+        navigatorKey: appNavigatorKey,
+      ),
       routes: {
         '/login': (context) => const LoginScreen(),
         '/timetable': (context) => AppNavigation.buildTimetablePage(),
